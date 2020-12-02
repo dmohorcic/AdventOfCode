@@ -5,7 +5,6 @@ def task1(arr):
 	print("Task 1")
 	print(sum([math.floor(x/3)-2 for x in arr]))
 
-
 def task2(arr):
 	print("Task 2")
 	s = 0
@@ -17,7 +16,6 @@ def task2(arr):
 			additional_fuel = math.floor(additional_fuel/3)-2
 		s += fuel
 	print(s)
-
 
 def main():
 	lst = list()
