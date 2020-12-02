@@ -129,4 +129,4 @@ dmypy.json
 .pyre/
 
 # Don't include input data
-*.txt
+*.in

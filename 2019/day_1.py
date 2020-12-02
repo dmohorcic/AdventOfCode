@@ -21,7 +21,7 @@ def task2(arr):
 
 def main():
 	lst = list()
-	with open("day_1.txt", "r") as f:
+	with open("2019/day_1.in", "r") as f:
 		for l in f:
 			lst.append(int(l.split('\n')[0]))
 	arr = np.array(lst)
