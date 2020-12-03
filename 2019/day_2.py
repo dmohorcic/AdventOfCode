@@ -1,9 +1,8 @@
 import numpy as np
 
-def task1(arr):
-	print("Task 1")
-	arr[1] = 12
-	arr[2] = 2
+def simulate(arr, arg1, arg2):
+	arr[1] = arg1
+	arr[2] = arg2
 	i = 0
 	while True:
 		ins = arr[i]
@@ -17,34 +16,19 @@ def task1(arr):
 		elif ins == 2:
 			arr[out] = arr[in1]*arr[in2]
 		i += 4
-	print(arr[0])
+
+def task1(arr):
+	simulate(arr, 12, 2)
+	return arr[0]
 
 def task2(arr):
-	print("Task 2")
 	for i in range(100):
 		for j in range(100):
 			temp = arr.copy()
-			temp[1] = i
-			temp[2] = j
-			idx = 0
 			try:
-				while True:
-					ins = temp[idx]
-					if ins == 99:
-						break
-					in1 = temp[idx+1]
-					in2 = temp[idx+2]
-					out = temp[idx+3]
-					if ins == 1:
-						temp[out] = temp[in1]+temp[in2]
-					elif ins == 2:
-						temp[out] = temp[in1]*temp[in2]
-					else:
-						raise Exception
-					idx += 4
+				simulate(temp, i, j)
 				if temp[0] == 19690720:
-					print(100*temp[1]+temp[2])
-					return
+					return 100*temp[1]+temp[2]
 			except:
 				continue
 
@@ -55,8 +39,11 @@ def main():
 		lst = [int(s) for s in l.split(',')]
 	arr = lst
 
-	task1(arr.copy())
-	task2(arr.copy())
+	res1 = task1(arr.copy())
+	print("Task 1: %d" % res1)
+
+	res2 = task2(arr.copy())
+	print("Task 2: %d" % res2)
 
 if __name__ == "__main__":
 	main()

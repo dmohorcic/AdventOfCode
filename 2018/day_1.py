@@ -1,11 +1,9 @@
 import numpy as np
 
 def task1(arr):
-	print("Taks 1")
-	print(sum(arr))
+	return sum(arr)
 
 def task2(arr):
-	print("Task 2")
 	d = dict()
 	f, i = 0, 0
 	d[f] = 1
@@ -15,8 +13,7 @@ def task2(arr):
 		if i == len(arr):
 			i = 0
 		if f in d.keys():
-			print(f)
-			return
+			return f
 		else:
 			d[f] = 1
 
@@ -27,8 +24,11 @@ def main():
 			lst.append(int(l.split('\n')[0]))
 	arr = np.array(lst)
 
-	task1(arr)
-	task2(arr)
+	res1 = task1(arr)
+	print("Task 1: %d" % res1)
+
+	res2 = task2(arr)
+	print("Task 2: %d" % res2)
 
 if __name__ == "__main__":
 	main()

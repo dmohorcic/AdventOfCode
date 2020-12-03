@@ -35,10 +35,10 @@ def main():
 	mtx = np.array(lst)
 	
 	res1 = task1(mtx)
-	print("Task 1: %d\n" % res1)
+	print("Task 1: %d" % res1)
 
 	res2 = task2(mtx)
-	print("Task 2: %d\n" % res2)
+	print("Task 2: %d" % res2)
 
 if __name__ == "__main__":
 	main()
