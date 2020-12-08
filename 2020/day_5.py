@@ -5,7 +5,6 @@ def getSeatId(seat):
 	col = int(seat[-3:].replace('L', '0').replace('R', '1'), 2)
 	return row*8+col
 
-
 def task1(arr):
 	return max([getSeatId(seat) for seat in arr])
 
