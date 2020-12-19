@@ -1,4 +1,5 @@
 import numpy as np
+import nltk
 
 def getRequirements(rules):
 	req = dict()
@@ -60,6 +61,12 @@ def generateDinamicaly(rules, generated):
 								gen.append(s1+s2)
 				generated[key] = gen
 
+def strFromRules(rules):
+	s = "S -> 0\n"
+	for key, val in rules.items():
+		s += str(key)+" -> "+val+'\n'
+	return s[:-1]
+
 def task1(rules, msgs):
 	c = 0
 	generated = dict()
@@ -70,9 +77,19 @@ def task1(rules, msgs):
 			c += 1
 	return c
 
-def task1(rules, msgs):
+def task2(rules, msgs):
+	c = 0
 	rules[8] = "42 | 42 8"
-	rules[11] = "11: 42 31 | 42 11 31"
+	rules[11] = "42 31 | 42 11 31"
+	grammar = nltk.CFG.fromstring(strFromRules(rules))
+	parser = nltk.parse.EarleyChartParser(grammar)
+	for msg in msgs:
+		p = parser.parse(msg)
+		correct = False
+		for tree in p:
+			c += 1
+			break
+	return c
 
 def main():
 	rules = dict()
@@ -91,6 +108,9 @@ def main():
 
 	res1 = task1(rules, msgs)
 	print("Taks 1: %d" % res1)
+
+	res2 = task2(rules, msgs)
+	print("Task 2: %d" % res2)
 
 if __name__ == "__main__":
 	main()
