@@ -16,7 +16,7 @@ def task2(arr):
 
 if __name__ == "__main__":
 	arr = list()
-	with open("2021/day_1.in", "r") as f:
+	with open("2021/day_01.in", "r") as f:
 		for l in f.readlines():
 			arr.append(int(l))
 
