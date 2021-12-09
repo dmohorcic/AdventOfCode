@@ -72,7 +72,7 @@ def createDisplayDict(display):
 
 	corrected = dict()
 	for key, val in translation.items():
-		new_key = toDictKey(key) # ne dela...
+		new_key = toDictKey(key)
 		corrected[new_key] = val
 	return corrected
 
