@@ -33,5 +33,5 @@ if __name__ == "__main__":
 	with open("2021/day_06.in", "r") as f:
 		fish = [int(i) for i in f.readline().split("\n")[0].split(",")]
 	
-	print(task1(fish.copy()))
-	print(task2(fish.copy()))
+	print(f"Task 1: {task1(fish.copy())}")
+	print(f"Task 2: {task2(fish.copy())}")

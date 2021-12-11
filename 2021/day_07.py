@@ -30,5 +30,5 @@ if __name__ == "__main__":
 	with open("2021/day_07.in", "r") as f:
 		crabs = np.array([int(i) for i in f.readline().split("\n")[0].split(",")])
 
-	print(task1(crabs))
-	print(task2(crabs))
+	print(f"Task 1: {task1(crabs)}")
+	print(f"Task 2: {task2(crabs)}")

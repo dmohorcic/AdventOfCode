@@ -103,5 +103,5 @@ if __name__ == "__main__":
 			display.append(tmp[0].split(" "))
 			output.append(tmp[1].split(" "))
 	
-	print(task1(output))
-	print(task2(display, output))
+	print(f"Task 1: {task1(output)}")
+	print(f"Task 2: {task2(display, output)}")

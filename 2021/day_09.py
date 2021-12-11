@@ -54,5 +54,5 @@ if __name__ == "__main__":
 	area = np.array(area)
 	
 	risk, minima = task1(area)
-	print(risk)
-	print(task2(area, minima))
+	print(f"Task 1: {risk}")
+	print(f"Task 2: {task2(area, minima)}")

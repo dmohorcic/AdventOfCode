@@ -57,5 +57,5 @@ if __name__ == "__main__":
 				i += 1
 		boards.append(board)
 	
-	print(task1(seq, [board.copy() for board in boards]))
-	print(task2(seq, boards))
+	print(f"Task 1: {task1(seq, [board.copy() for board in boards])}")
+	print(f"Task 2: {task2(seq, boards)}")

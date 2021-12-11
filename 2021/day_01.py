@@ -20,5 +20,5 @@ if __name__ == "__main__":
 		for l in f.readlines():
 			arr.append(int(l))
 
-	print(task1(arr))
-	print(task2(arr))
+	print(f"Task 1: {task1(arr)}")
+	print(f"Task 1: {task2(arr)}")

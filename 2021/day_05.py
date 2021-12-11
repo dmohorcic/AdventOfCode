@@ -35,5 +35,5 @@ if __name__ == "__main__":
 			l = l.split("\n")[0].split(" -> ")
 			data.append(([int(i) for i in l[0].split(",")], [int(i) for i in l[1].split(",")]))
 	
-	print(task1(data))
-	print(task2(data))
+	print(f"Task 1: {task1(data)}")
+	print(f"Task 2: {task2(data)}")

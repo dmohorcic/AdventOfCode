@@ -30,5 +30,5 @@ if __name__ == "__main__":
 		for l in f.readlines():
 			arr.append(l.split("\n")[0].split(" "))
 
-	print(task1(arr))
-	print(task2(arr))
+	print(f"Task 1: {task1(arr)}")
+	print(f"Task 2: {task2(arr)}")

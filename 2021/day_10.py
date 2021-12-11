@@ -46,5 +46,5 @@ if __name__ == "__main__":
 		for i, l in enumerate(f.readlines()):
 			expressions.append(l.split("\n")[0])
 	incomplete, score = task1(expressions)
-	print(score)
-	print(task2(incomplete))
+	print(f"Task 1: {score}")
+	print(f"Task 2: {task2(incomplete)}")

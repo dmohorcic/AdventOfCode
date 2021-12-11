@@ -48,5 +48,5 @@ if __name__ == "__main__":
 	for i in range(len(arr)):
 		tmp[i, :] = np.array([int(c) for c in arr[i]])
 
-	print(task1(tmp))
-	print(task2(arr))
+	print(f"Task 1: {task1(tmp)}")
+	print(f"Task 2: {task2(arr)}")
