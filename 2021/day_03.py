@@ -1,5 +1,4 @@
 import numpy as np
-from numpy.core.arrayprint import array_str
 
 def task1(arr):
 	most_common = np.round(arr.mean(axis=0)).astype("int")

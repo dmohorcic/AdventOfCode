@@ -12,7 +12,7 @@ def task1(expressions):
 		for e in exp:
 			if e in closing:
 				last = stack.pop()
-				if e != pair[last]: # found error
+				if e != pair[last]:
 					score += scoring1[e]
 					is_broken = True
 					break

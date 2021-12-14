@@ -7,7 +7,7 @@ def arrInList(arr, lst):
 def printCode(chars):
 	max_x = max([i[0] for i in chars])+1
 	max_y = max([i[1] for i in chars])+1
-	img = [["." for _ in range(max_x)] for _ in range(max_y)]
+	img = [[" " for _ in range(max_x)] for _ in range(max_y)]
 	for c in chars:
 		img[c[1]][c[0]] = "#"
 	for line in img:
