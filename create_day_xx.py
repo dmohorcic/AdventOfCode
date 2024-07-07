@@ -3,14 +3,15 @@ import os
 YEAR = "2023"
 
 def main():
-    try:
-        raw_input = input("Day: ")
-        day_number = int(raw_input)
-        if day_number < 1 or day_number > 25:
-            raise ValueError()
-    except ValueError:
-        print(f"Day should be an integer between 1 and 25 inclusive, but you gave '{raw_input}'")
-        exit()
+    while True:
+        try:
+            raw_input = input("Day [1-25]: ")
+            day_number = int(raw_input)
+            if day_number < 1 or day_number > 25:
+                raise ValueError()
+            break
+        except ValueError:
+            pass
 
     if not os.path.isdir(YEAR):
         os.mkdir(YEAR)
