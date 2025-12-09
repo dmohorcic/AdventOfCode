@@ -7,13 +7,12 @@ import (
 )
 
 func Day04() {
-	fmt.Println("--- Day 4: Ceres Search ---")
-
-	file, err := os.Open("04.in")
+	file, err := os.Open("day_04.in")
 	if err != nil {
-		panic(err)
+		return
 	}
 	defer file.Close()
+	fmt.Println("--- Day 4: Ceres Search ---")
 
 	var crossword_raw []string
 	scanner := bufio.NewScanner(file)

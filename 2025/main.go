@@ -11,11 +11,16 @@ func main() {
 	Day06()
 	Day07()
 	Day08()
+	Day09()
 }
 
 type Range struct {
 	Start int
 	End   int
+}
+
+type Point struct {
+	X, Y, Z int
 }
 
 func StringToInt(str string) int {

@@ -96,7 +96,7 @@ func (ir1 Range) SumInvalidIDsMultiple() int {
 }
 
 func Day02() {
-	file, err := os.Open("02.in")
+	file, err := os.Open("day_02.in")
 	if err != nil {
 		return
 	}

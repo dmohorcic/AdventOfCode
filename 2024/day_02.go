@@ -9,13 +9,12 @@ import (
 )
 
 func Day02() {
-	fmt.Println("--- Day 2: Red-Nosed Reports ---")
-
-	file, err := os.Open("02.in")
+	file, err := os.Open("day_02.in")
 	if err != nil {
-		panic(err)
+		return
 	}
 	defer file.Close()
+	fmt.Println("--- Day 2: Red-Nosed Reports ---")
 
 	var reports_raw []string
 	scanner := bufio.NewScanner(file)

@@ -54,7 +54,7 @@ func largestSubsetN(batteryArray []int, n int) int {
 }
 
 func Day03() {
-	file, err := os.Open("03.in")
+	file, err := os.Open("day_03.in")
 	if err != nil {
 		return
 	}

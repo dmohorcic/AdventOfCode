@@ -8,13 +8,12 @@ import (
 )
 
 func Day03() {
-	fmt.Println("--- Day 3: Mull It Over ---")
-
-	file, err := os.Open("03.in")
+	file, err := os.Open("day_03.in")
 	if err != nil {
-		panic(err)
+		return
 	}
 	defer file.Close()
+	fmt.Println("--- Day 3: Mull It Over ---")
 
 	var memory_raw []string
 	scanner := bufio.NewScanner(file)

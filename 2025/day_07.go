@@ -73,11 +73,12 @@ func tachyonBeamQuantumSplits(tachyonManifold []string) int {
 }
 
 func Day07() {
-	file, err := os.Open("07.in")
+	file, err := os.Open("day_07.in")
 	if err != nil {
 		return
 	}
 	defer file.Close()
+
 	fmt.Println("--- Day 7: Laboratories ---")
 
 	var tachyonManifold []string

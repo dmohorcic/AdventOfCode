@@ -10,10 +10,6 @@ import (
 	"strings"
 )
 
-type Point struct {
-	X, Y, Z int
-}
-
 type DistanceTracker struct {
 	P1, P2   int
 	Distance float64
@@ -167,11 +163,12 @@ func hierarchicalClusteringFinal(junctionBoxes []Point) int {
 }
 
 func Day08() {
-	file, err := os.Open("08.in")
+	file, err := os.Open("day_08.in")
 	if err != nil {
 		return
 	}
 	defer file.Close()
+
 	fmt.Println("--- Day 8: Playground ---")
 
 	var junctionBoxes []Point

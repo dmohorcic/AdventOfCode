@@ -8,13 +8,12 @@ import (
 )
 
 func Day05() {
-	fmt.Println("--- Day 5: Print Queue ---")
-
-	file, err := os.Open("05.in")
+	file, err := os.Open("day_05.in")
 	if err != nil {
-		panic(err)
+		return
 	}
 	defer file.Close()
+	fmt.Println("--- Day 5: Print Queue ---")
 
 	var rules_raw, prints_raw []string
 	rules_end := false

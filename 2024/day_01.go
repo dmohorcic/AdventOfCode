@@ -10,13 +10,12 @@ import (
 )
 
 func Day01() {
-	fmt.Println("--- Day 1: Historian Hysteria ---")
-
-	file, err := os.Open("01.in")
+	file, err := os.Open("day_01.in")
 	if err != nil {
-		panic(err)
+		return
 	}
 	defer file.Close()
+	fmt.Println("--- Day 1: Historian Hysteria ---")
 
 	var lists_raw []string
 	scanner := bufio.NewScanner(file)

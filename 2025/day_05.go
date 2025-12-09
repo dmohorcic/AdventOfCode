@@ -27,13 +27,14 @@ func (ir1 Range) Merge(ir2 Range) Range {
 }
 
 func Day05() {
-	file, err := os.Open("05.in")
+	file, err := os.Open("day_05.in")
 	if err != nil {
 		return
 	}
 	defer file.Close()
 
 	fmt.Println("--- Day 5: Cafeteria ---")
+
 	var ingredientIdRanges []Range
 	var ingredientIds []int
 	scanningRanges := true

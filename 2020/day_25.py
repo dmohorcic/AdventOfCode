@@ -1,5 +1,3 @@
-import numpy as np
-
 def determineLoopSize(public):
     subject_num = 7
     value = 1

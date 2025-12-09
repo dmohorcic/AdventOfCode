@@ -62,13 +62,14 @@ func removePaperRolls(paperGrid [][]bool, removable []position) [][]bool {
 }
 
 func Day04() {
-	file, err := os.Open("04.in")
+	file, err := os.Open("day_04.in")
 	if err != nil {
 		return
 	}
 	defer file.Close()
 
 	fmt.Println("--- Day 4: Printing Department ---")
+
 	var paperGrid [][]bool
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {

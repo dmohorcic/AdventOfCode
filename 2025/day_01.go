@@ -12,7 +12,7 @@ type dial struct {
 }
 
 func Day01() {
-	file, err := os.Open("01.in")
+	file, err := os.Open("day_01.in")
 	if err != nil {
 		return
 	}
