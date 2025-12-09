@@ -1,2 +1,3 @@
 *.in
 .vscode
+*.DS_Store
