@@ -12,13 +12,17 @@ func maxArea(coords []Point) int {
 	var maxArea float64
 	for i, c1 := range coords {
 		for _, c2 := range coords[i+1:] {
-			area := math.Abs(float64(c1.X-c2.X+1)) * math.Abs(float64(c1.Y-c2.Y+1))
+			area := (math.Abs(float64(c1.X-c2.X)) + 1) * (math.Abs(float64(c1.Y-c2.Y)) + 1)
 			if area > maxArea {
 				maxArea = area
 			}
 		}
 	}
 	return int(maxArea)
+}
+
+func maxAreaWithinPolygon(coords []Point) int {
+	return 0
 }
 
 func Day09() {
@@ -45,4 +49,7 @@ func Day09() {
 
 	area := maxArea(coords)
 	fmt.Printf("Task 1: %d\n", area)
+
+	area = maxAreaWithinPolygon(coords)
+	fmt.Printf("Task 2: %d\n", area)
 }
