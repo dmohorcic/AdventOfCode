@@ -3,8 +3,10 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"io"
 	"math"
 	"os"
+	"os/exec"
 	"strings"
 )
 
@@ -47,7 +49,7 @@ func (m Machine) fewestButtonPressesLights(idx, currentPresses int, lights []boo
 	return int(math.Min(float64(min_yes), float64(min_no)))
 }
 
-func (m Machine) FewestButtonPressesJoltage() int {
+func (m Machine) FewestButtonPressesJoltage(z3 *Z3Proc) int {
 	// Integer Linear Programming
 	A := make([][]int, len(m.Joltage))
 	for i := range len(m.Joltage) {
@@ -62,7 +64,129 @@ func (m Machine) FewestButtonPressesJoltage() int {
 	copy(b, m.Joltage)
 	// x := make([]int, len(m.Buttons))
 	// min x such that Ax = b and x >= 0
-	return -1
+	smt2String := createSMT2(A, b)
+	minimum := z3.Call(smt2String)
+	return minimum
+}
+
+func createSMT2(A [][]int, b []int) string {
+	m := len(A)
+	n := len(A[0])
+
+	smt2String := "(set-logic QF_LIA)\n"
+
+	// variables
+	for j := 0; j < n; j++ {
+		smt2String = fmt.Sprintf("%s(declare-fun x%d () Int)\n", smt2String, j)
+		smt2String = fmt.Sprintf("%s(assert (>= x%d 0))\n", smt2String, j)
+	}
+
+	// Ax = b constraints
+	for i := 0; i < m; i++ {
+		smt2String = fmt.Sprintf("%s(assert (= (+", smt2String)
+		for j := 0; j < n; j++ {
+			if A[i][j] != 0 {
+				smt2String = fmt.Sprintf("%s x%d", smt2String, j)
+			}
+		}
+		smt2String = fmt.Sprintf("%s) %d))\n", smt2String, b[i])
+	}
+
+	// objectives
+	smt2String = fmt.Sprintf("%s(minimize (+", smt2String)
+	for j := 0; j < n; j++ {
+		smt2String = fmt.Sprintf("%s x%d", smt2String, j)
+	}
+	smt2String = fmt.Sprintf("%s))\n(check-sat)\n(get-model)\n(get-objectives)\n", smt2String)
+
+	return smt2String
+}
+
+func CheckDockerRunning() bool {
+	cmd := exec.Command("docker", "info")
+	err := cmd.Run()
+	return err == nil
+}
+
+type Z3Proc struct {
+	cmd    *exec.Cmd
+	stdin  io.WriteCloser
+	stdout io.ReadCloser
+	reader *bufio.Reader
+}
+
+func InitZ3() *Z3Proc {
+	cmd := exec.Command(
+		"docker", "run", "--rm", "-i",
+		"ghcr.io/z3prover/z3:ubuntu-20.04-bare-z3-sha-d66609e",
+		"-in", "-smt2",
+	)
+	stdin, err := cmd.StdinPipe()
+	if err != nil {
+		panic(fmt.Sprintf("failed to open stdin: %v", err))
+	}
+	stdout, err := cmd.StdoutPipe()
+	if err != nil {
+		panic(fmt.Sprintf("failed to open stdout: %v", err))
+	}
+	if err := cmd.Start(); err != nil {
+		panic(fmt.Sprintf("failed to start docker/z3: %v", err))
+	}
+
+	proc := &Z3Proc{
+		cmd:    cmd,
+		stdin:  stdin,
+		stdout: stdout,
+		reader: bufio.NewReader(stdout),
+	}
+
+	return proc
+}
+
+func (p *Z3Proc) Call(smt2String string) int {
+	wrapped := fmt.Sprintf("(push 1)\n%s(echo \"__END__\")\n(pop 1)\n", smt2String)
+
+	if _, err := p.stdin.Write([]byte(wrapped)); err != nil {
+		panic(fmt.Sprintf("failed to write SMT to Z3: %v", err))
+	}
+
+	// read until "__END__"
+	var sb strings.Builder
+	for {
+		line, err := p.reader.ReadString('\n')
+		if err != nil {
+			panic(fmt.Sprintf("failed reading Z3 output: %v", err))
+		}
+		if strings.Contains(line, "__END__") {
+			break
+		}
+		sb.WriteString(line)
+	}
+
+	output := sb.String()
+	solution := -1
+	foundSolutionRow := false
+	for _, row := range strings.Split(output, "\n") {
+		if foundSolutionRow {
+			//  ((+ x0 x1 ... xi) solution)
+			splitRow := strings.Split(row, " ")
+			solutionString := splitRow[len(splitRow)-1]                    // get "solution)"
+			solution = StringToInt(solutionString[:len(solutionString)-1]) // remove last ")"
+			break
+		}
+		if strings.Contains(row, "objectives") {
+			foundSolutionRow = true
+		}
+	}
+	return solution
+}
+
+func (p *Z3Proc) Close() {
+	p.stdin.Close()
+	if err := p.cmd.Process.Kill(); err != nil {
+		panic(fmt.Sprintf("failed killing Z3 process: %v", err))
+	}
+	_, _ = p.cmd.Process.Wait()
 }
 
 func Day10() {
@@ -119,10 +243,15 @@ func Day10() {
 	}
 	fmt.Printf("Task 1: %d\n", totalButtonPresses)
 
+	if !CheckDockerRunning() {
+		return
+	}
+	z3 := InitZ3()
 	totalButtonPresses = 0
 	for _, machine := range machines {
-		buttonPresses := machine.FewestButtonPressesJoltage()
+		buttonPresses := machine.FewestButtonPressesJoltage(z3)
 		totalButtonPresses += buttonPresses
 	}
+	z3.Close()
 	fmt.Printf("Task 2: %d\n", totalButtonPresses)
 }

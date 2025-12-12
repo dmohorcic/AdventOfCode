@@ -42,9 +42,7 @@ func distanceQueue(junctionBoxes []Point) []DistanceTracker {
 	return distance
 }
 
-func hierarchicalClustering(junctionBoxes []Point, maxConnections int) int {
-	closestQueue := distanceQueue(junctionBoxes)
-
+func hierarchicalClustering(junctionBoxes []Point, closestQueue []DistanceTracker, maxConnections int) int {
 	clusters := map[int]map[int]struct{}{}
 	for i := range len(junctionBoxes) {
 		clusters[i] = map[int]struct{}{
@@ -117,9 +115,7 @@ func hierarchicalClustering(junctionBoxes []Point, maxConnections int) int {
 	return threeLargestSize
 }
 
-func hierarchicalClusteringFinal(junctionBoxes []Point) int {
-	closestQueue := distanceQueue(junctionBoxes)
-
+func hierarchicalClusteringFinal(junctionBoxes []Point, closestQueue []DistanceTracker) int {
 	clusters := map[int]map[int]struct{}{}
 	for i := range len(junctionBoxes) {
 		clusters[i] = map[int]struct{}{
@@ -185,9 +181,11 @@ func Day08() {
 		junctionBoxes = append(junctionBoxes, Point{X: x, Y: y, Z: z})
 	}
 
-	groups := hierarchicalClustering(junctionBoxes, 1000)
+	closestQueue := distanceQueue(junctionBoxes)
+
+	groups := hierarchicalClustering(junctionBoxes, closestQueue, 1000)
 	fmt.Printf("Task 1: %d\n", groups)
 
-	size := hierarchicalClusteringFinal(junctionBoxes)
+	size := hierarchicalClusteringFinal(junctionBoxes, closestQueue)
 	fmt.Printf("Task 2: %d\n", size)
 }
